@@ -1,27 +1,30 @@
 interface HeroProps {
   readonly name: string;
-  readonly headline: string;
+  readonly tagline: string;
 }
 
-export function Hero({ name, headline }: HeroProps) {
+export function Hero({ name, tagline }: HeroProps) {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center bg-grid-gray-700/[0.2]"
+      className="min-h-[calc(100vh-4rem)] flex items-center"
     >
-      <div className="text-center px-6">
-        <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4">
+      <div className="max-w-4xl mx-auto px-6 w-full">
+        <p className="font-mono text-xs uppercase tracking-widest text-zinc-500">Portfolio · 2026</p>
+        <h1 className="mt-4 text-5xl md:text-7xl font-semibold text-zinc-900 tracking-tight">
           {name}
         </h1>
-        <p className="text-lg md:text-2xl text-gray-300 max-w-3xl mx-auto">
-          {headline}
+        <p className="mt-6 text-lg md:text-2xl text-zinc-600 max-w-2xl leading-relaxed">
+          {tagline}
         </p>
-        <a
-          href="#projects"
-          className="mt-8 inline-block bg-indigo-600 text-white font-bold py-3 px-8 rounded-full hover:bg-indigo-700 transition-all transform hover:scale-105"
-        >
-          制作実績を見る
-        </a>
+        <div className="mt-10 flex items-center gap-x-6 text-sm">
+          <a href="#experience" className="text-zinc-900 underline underline-offset-4 hover:opacity-70">
+            View experience
+          </a>
+          <a href="#contact" className="text-zinc-500 hover:text-zinc-900">
+            Get in touch
+          </a>
+        </div>
       </div>
     </section>
   );

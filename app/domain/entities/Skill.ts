@@ -1,14 +1,12 @@
-export type SkillIconKey =
-  | 'cpp'
-  | 'python'
-  | 'rust'
-  | 'typescript'
-  | 'flutter'
-  | 'nextjs'
-  | 'react';
+export type SkillCategory =
+  | 'Languages'
+  | 'Web'
+  | 'Mobile'
+  | 'ML / Simulation'
+  | 'Cloud';
 
 export interface Skill {
   readonly id: string;
   readonly name: string;
-  readonly iconKey: SkillIconKey;
+  readonly category: SkillCategory;
 }

@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 const SITE_NAME = 'Daichi Hotta';
 const SITE_DESCRIPTION =
-  '青山学院大学でコンピュータグラフィックスを研究する Daichi Hotta のポートフォリオサイト。物理シミュレーション・HPC・低レイヤー技術に関心があります。';
+  'Daichi Hotta のポートフォリオサイト。コンピュータグラフィックス研究室で粒状体の物理シミュレーションを研究しつつ、AI/ML プロダクトのフルスタック開発にも取り組んでいます。';
 
 export const metadata: Metadata = {
   title: {
@@ -29,9 +29,11 @@ export const metadata: Metadata = {
     'Portfolio',
     'Computer Graphics',
     'Physics Simulation',
+    'Machine Learning',
     'Next.js',
     'TypeScript',
     'C++',
+    'Python',
   ],
   authors: [{ name: SITE_NAME }],
   openGraph: {
@@ -56,7 +58,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-zinc-900`}
       >
         {children}
       </body>

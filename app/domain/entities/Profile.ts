@@ -6,7 +6,7 @@ export interface SocialLinks {
 
 export interface Profile {
   readonly name: string;
-  readonly headline: string;
+  readonly tagline: string;
   readonly affiliation: readonly string[];
   readonly bio: readonly string[];
   readonly email: string;

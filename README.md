@@ -4,11 +4,11 @@ Daichi Hotta のポートフォリオサイト。Next.js (App Router) + React Se
 
 ## 技術スタック
 
-- Next.js 15 (App Router)
+- Next.js 16 (App Router)
 - React 19
 - TypeScript
 - Tailwind CSS v4
-- lucide-react / react-icons
+- lucide-react
 
 ## アーキテクチャ
 
@@ -32,7 +32,7 @@ Daichi Hotta のポートフォリオサイト。Next.js (App Router) + React Se
 └───────────────────────────────────────┘
 ```
 
-依存方向は内向き (`Presentation → Application → Domain ← Infrastructure`)。Domain はフレームワークに一切依存せず、`Project` / `Skill` / `Profile` というドメイン概念のみを表現します。
+依存方向は内向き (`Presentation → Application → Domain ← Infrastructure`)。Domain はフレームワークに一切依存せず、`Experience` / `Skill` / `Profile` というドメイン概念のみを表現します。
 
 ### ディレクトリ構成
 
@@ -42,21 +42,21 @@ app/
   page.tsx                       Server Component。UseCase 経由で取得したデータを Presentation に渡す
   composition.ts                 Composition Root (DI 配線を一箇所に集約)
   not-found.tsx / error.tsx
+  globals.css
 
   domain/                        Layer 1: ドメイン
-    entities/                    Project / Skill / Profile
+    entities/                    Experience / Skill / Profile
     repositories/                Repository インターフェース (抽象)
 
   application/                   Layer 2: アプリケーション
-    usecases/                    GetProjects / GetSkills / GetProfile
+    usecases/                    GetExperiences / GetSkills / GetProfile
 
   infrastructure/                Layer 3: インフラ
     repositories/                StaticXxxRepository (Domain の IF を実装)
 
   presentation/                  Layer 4: UI
-    components/                  Header / Hero / About / Projects / ProjectCard / Skills / SkillBadge / Footer
+    components/                  Header / Hero / About / Experience / ExperienceItem / Skills / Footer
     hooks/                       useMobileMenu
-    icons/                       skillIcons (iconKey → コンポーネント解決)
 ```
 
 ## セットアップ
@@ -77,10 +77,10 @@ npm run dev
 | `npm run start` | 本番サーバー起動 |
 | `npm run lint` | ESLint 実行 |
 
-## プロジェクト / スキルの追加
+## コンテンツの追加・更新
 
 `app/infrastructure/repositories/` 配下の静的データを編集します。
 
-- プロジェクト追加: `StaticProjectRepository.ts` の `projects` 配列に `Project` を追加
-- スキル追加: `StaticSkillRepository.ts` の `skills` 配列に追加し、`Skill.iconKey` を `app/domain/entities/Skill.ts` の `SkillIconKey` ユニオンに、`app/presentation/icons/skillIcons.ts` のマッピングに登録
-- プロフィール更新: `StaticProfileRepository.ts` を編集
+- 経歴の追加: `StaticExperienceRepository.ts` の `experiences` 配列に `Experience` (Internship / Research / Personal Project) を追加
+- スキル追加: `StaticSkillRepository.ts` の `skills` 配列に追加 (`category` は `Languages` / `Web` / `Mobile` / `ML / Simulation` / `Cloud` から選択)
+- プロフィール更新: `StaticProfileRepository.ts` を編集 (name / tagline / affiliation / bio / socials)
