@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# my-portfolio
 
-## Getting Started
+Daichi Hotta のポートフォリオサイト。Next.js (App Router) + React Server Components + TypeScript + Tailwind CSS で構築し、**レイヤードアーキテクチャ** に沿って 4 層に責務を分離しています。
 
-First, run the development server:
+## 技術スタック
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Next.js 15 (App Router)
+- React 19
+- TypeScript
+- Tailwind CSS v4
+- lucide-react / react-icons
+
+## アーキテクチャ
+
+```
+┌───────────────────────────────────────┐
+│  Presentation (React components)       │  Next.js / Tailwind に依存
+└──────────────┬────────────────────────┘
+               │ 呼び出し
+               ▼
+┌───────────────────────────────────────┐
+│  Application (UseCases)                │  手順を組み立てる
+└──────────────┬────────────────────────┘
+               │ 依存
+               ▼
+┌───────────────────────────────────────┐
+│  Domain (Entities, Repository IF)      │  何にも依存しない (core)
+└──────────────▲────────────────────────┘
+               │ 実装する
+┌──────────────┴────────────────────────┐
+│  Infrastructure (Repository 実装, データ)│  静的データ・API・DB など
+└───────────────────────────────────────┘
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+依存方向は内向き (`Presentation → Application → Domain ← Infrastructure`)。Domain はフレームワークに一切依存せず、`Project` / `Skill` / `Profile` というドメイン概念のみを表現します。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### ディレクトリ構成
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+app/
+  layout.tsx
+  page.tsx                       Server Component。UseCase 経由で取得したデータを Presentation に渡す
+  composition.ts                 Composition Root (DI 配線を一箇所に集約)
+  not-found.tsx / error.tsx
 
-## Learn More
+  domain/                        Layer 1: ドメイン
+    entities/                    Project / Skill / Profile
+    repositories/                Repository インターフェース (抽象)
 
-To learn more about Next.js, take a look at the following resources:
+  application/                   Layer 2: アプリケーション
+    usecases/                    GetProjects / GetSkills / GetProfile
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+  infrastructure/                Layer 3: インフラ
+    repositories/                StaticXxxRepository (Domain の IF を実装)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+  presentation/                  Layer 4: UI
+    components/                  Header / Hero / About / Projects / ProjectCard / Skills / SkillBadge / Footer
+    hooks/                       useMobileMenu
+    icons/                       skillIcons (iconKey → コンポーネント解決)
+```
 
-## Deploy on Vercel
+## セットアップ
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm install
+npm run dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+ブラウザで http://localhost:3000 を開きます。
+
+## スクリプト
+
+| コマンド | 内容 |
+|---|---|
+| `npm run dev` | 開発サーバー起動 |
+| `npm run build` | 本番ビルド |
+| `npm run start` | 本番サーバー起動 |
+| `npm run lint` | ESLint 実行 |
+
+## プロジェクト / スキルの追加
+
+`app/infrastructure/repositories/` 配下の静的データを編集します。
+
+- プロジェクト追加: `StaticProjectRepository.ts` の `projects` 配列に `Project` を追加
+- スキル追加: `StaticSkillRepository.ts` の `skills` 配列に追加し、`Skill.iconKey` を `app/domain/entities/Skill.ts` の `SkillIconKey` ユニオンに、`app/presentation/icons/skillIcons.ts` のマッピングに登録
+- プロフィール更新: `StaticProfileRepository.ts` を編集
