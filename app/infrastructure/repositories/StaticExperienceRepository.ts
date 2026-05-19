@@ -17,13 +17,6 @@ const experiences: readonly Experience[] = [
       'Next.js で配分判断のモックUIを作成し、月末在庫と翌月予測から仕入れ推奨量を SKU 単位で可視化。モデルの数字を「業務に使える形」まで落とし込んだ。',
     ],
     tech: ['Python', 'Next.js', 'TypeScript', 'AWS', 'Claude Code'],
-    links: [
-      {
-        type: 'github',
-        url: 'https://github.com/daichi0812/markdoor-pisco-demand-forecast',
-        label: 'pisco demand forecast',
-      },
-    ],
   },
   {
     id: 'comsquare',
@@ -56,23 +49,11 @@ const experiences: readonly Experience[] = [
       'Taichi/Python と C++ で実装。マクロな応力-歪み再現性まで含めた評価で、任意形状でも堅牢に動作する基盤の確立を目標。',
     ],
     tech: ['Python', 'C++', 'Taichi'],
-    links: [
-      {
-        type: 'github',
-        url: 'https://github.com/daichi0812/generalized-hybrid-grains',
-        label: 'generalized-hybrid-grains',
-      },
-      {
-        type: 'github',
-        url: 'https://github.com/daichi0812/dem-mpm-data-hub',
-        label: 'dem-mpm-data-hub',
-      },
-    ],
   },
   {
     id: 'llmatch',
     title: '研究: LLMATCH',
-    organization: '青山学院大学',
+    organization: '東京大学 松尾・岩澤研究室',
     category: 'Research',
     period: { start: '2026-05' },
     status: 'In Progress',
