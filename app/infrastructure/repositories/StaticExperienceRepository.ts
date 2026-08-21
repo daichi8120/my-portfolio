@@ -77,7 +77,7 @@ const experiences: readonly Experience[] = [
     tech: ['Next.js', 'TypeScript', 'Supabase', 'NextAuth', 'Tailwind CSS'],
     links: [
       { type: 'live', url: 'https://abs-ems.vercel.app' },
-      { type: 'github', url: 'https://github.com/daichi0812/abs-ems' },
+      { type: 'github', url: 'https://github.com/daichi8120/abs-ems' },
     ],
   },
   {
@@ -93,7 +93,7 @@ const experiences: readonly Experience[] = [
       'Flutter / Dart のアプリ開発の流れを実プロダクトとして習熟。',
     ],
     tech: ['Flutter', 'Dart'],
-    links: [{ type: 'github', url: 'https://github.com/daichi0812/madoi' }],
+    links: [{ type: 'github', url: 'https://github.com/daichi8120/madoi' }],
   },
 ] as const;
 
